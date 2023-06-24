@@ -21,6 +21,10 @@ function createGrid(grid) {
     changeColorOnHover();
 }
 
+function removeGrid() {
+    container.innerHTML = '';
+}
+
 function changeColorOnHover() {
     let items = document.querySelectorAll('.column');
     items.forEach(item => {
@@ -38,4 +42,24 @@ function randomColors() {
     }
     return color;
 }
-createGrid(100);
+let grid = 16;
+createGrid(grid);
+
+let changeGridlayout = document.querySelector('#promptForGridSize');
+changeGridlayout.onclick = function() {
+    grid = prompt("Enter new dimnsions for grid (0 to 100)");
+    if (isNaN(grid)) {
+        grid = prompt ("Enter a valid number between 0 to 100");
+    } else if (grid > 100 || grid < 10) {
+        grid = prompt("Value should be between 0 to 100");
+    } else {
+        removeGrid();
+        createGrid(grid);
+    }
+}
+
+let clear = document.querySelector('#clear');
+clear.onclick = function() {
+    removeGrid();
+    createGrid(grid);
+}
